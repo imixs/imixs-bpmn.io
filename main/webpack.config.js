@@ -19,7 +19,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       { from: 'assets/**', to: 'vendor/bpmn-js', context: 'node_modules/bpmn-js/dist/' },
-      { from: '**/*.{html,css}', context: 'app/' }
+      { from: '**/*.{html,css,ico,woff,ttf}', context: 'app/' }
     ])
   ],
   mode: 'development',

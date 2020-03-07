@@ -5,10 +5,36 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import diagramXML from '../resources/newDiagram.bpmn';
 
 var container = $('#js-drop-zone');
+var toggleState = false;
 
 var modeler = new BpmnModeler({
   container: '#bpmn-canvas'
 });
+
+
+
+
+
+function togglemenu() {
+	if (!toggleState) {
+
+		$('.nav-sidebar label').hide();
+		$('.content').css('margin-left', '60px');
+		$('.nav-sidebar').css('width', '60px');
+
+	} else {
+		$('.content').css('margin-left', '200px');
+		$('.nav-sidebar').css('width', '200px');
+		$('.nav-sidebar label').show();
+	}
+
+	toggleState = !toggleState;
+
+}
+
+
+
+
 
 function createNewDiagram() {
   openDiagram(diagramXML);
@@ -99,8 +125,14 @@ $(function() {
   $('#js-create-diagram').click(function(e) {
     e.stopPropagation();
     e.preventDefault();
-
     createNewDiagram();
+  });
+  
+  
+  $('#js-togglemenue').click(function(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+	  togglemenu();
   });
 
   var downloadLink = $('#js-download-diagram');
