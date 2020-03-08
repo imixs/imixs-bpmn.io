@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 
-import diagramXML from '../resources/newDiagram.bpmn';
+import diagramXML from '../resources/new_process.bpmn';
 
 var container = $('#js-drop-zone');
 var toggleState = false;
@@ -50,16 +50,6 @@ function openDiagram(xml) {
   });
 }
 
-function saveSVG(done) {
-  modeler.saveSVG(done);
-}
-
-function saveDiagram(done) {
-alert('save diagram');
-    modeler.saveXML({ format: true }, function(err, xml) {
-    done(err, xml);
-  });
-}
 
 function registerFileDrop(container, callback) {
 
@@ -169,44 +159,6 @@ $(function() {
   
   
   
-  
-
-  var downloadLink = $('#js-download-diagram');
-  var downloadSvgLink = $('#js-download-svg');
-
- 
-  $('.buttons a').click(function(e) {
-	    if (!$(this).is('.active')) {
-	      e.preventDefault();
-	      e.stopPropagation();
-	    }
-	  });
-
-  function setEncoded(link, name, data) {
-    var encodedData = encodeURIComponent(data);
-//alert("data=" + encodedData);
-    if (data) {
-      link.addClass('active').attr({
-        'href': 'data:application/bpmn20-xml;charset=UTF-8,' + encodedData,
-        'download': name
-      });
-      
-      
-    } else {
-      link.removeClass('active');
-    }
-  }
-
-  var exportArtifacts = debounce(function() {
-
-    saveSVG(function(err, svg) {
-      setEncoded(downloadSvgLink, 'diagram.svg', err ? null : svg);
-    });
-
-    saveDiagram(function(err, xml) {
-      setEncoded(downloadLink, 'diagram.bpmn', err ? null : xml);
-    });
-  }, 500);
 
   
   // Hook into Life-Cycle Events
@@ -220,19 +172,3 @@ $(function() {
   
 });
 
-
-
-// helpers //////////////////////
-
-function debounce(fn, timeout) {
-
-  var timer;
-
-  return function() {
-    if (timer) {
-      clearTimeout(timer);
-    }
-
-    timer = setTimeout(fn, timeout);
-  };
-}
