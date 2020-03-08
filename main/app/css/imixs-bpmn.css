@@ -45,13 +45,16 @@ body, html {
 }
 
 .header {
-	background-color: #FFF;
+	background-color: #263544;
 	border-bottom: 2px solid #e8e8e8;
-	min-height: 80px;
-	color: #263544;
-	height: 86px;
-	padding: 16px 10px;
+	height: 46px;
+	color: #EEE;
+	
 	white-space: nowrap;
+}
+
+.header a {
+	color:#fff;
 }
 
 .header .nav-sidebar ul li {
@@ -76,7 +79,7 @@ body, html {
 }
 
 .header .linkbox .typcn {
-	color: #263544;
+	
 }
 
 .header .linkbox ul li {
@@ -147,13 +150,16 @@ body, html {
 	width: 90%;
 }
 
-.main-container {
-	padding: 16px 20px;
-}
 
 .content {
 	margin-left: 200px;
-	background-color: #F2F7FB;
+	overflow: hidden;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+    right: 00px;
+	padding-bottom: 40px;
+	padding-left: 200px;
 }
 
 .form-section {
@@ -213,27 +219,6 @@ input[type="button"]:active, input[type="submit"]:active, a.button:active,
 	color: #ddd !important;
 }
 
-#imixs-content {
-	padding-bottom: 80px;
-}
-
-#imixs-content a.imixs-button {
-	color: inherit;
-}
-
-#imixs-content a.imixs-button:hover {
-	color: #fff;
-}
-
-#imixs-footer {
-	width: 100%;
-	padding: 10px 30px 10px 210px;
-	text-align: right;
-}
-
-#imixs-footer a {
-	color: inherit;
-}
 
 /* tootip */
 span.tooltip:hover {

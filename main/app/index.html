@@ -2,37 +2,33 @@
 <html>
 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta content="text/javascript" http-equiv="Content-Script-Type" />
-<meta content="text/css" http-equiv="Content-Style-Type" />
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-
-<title>Imixs-Admin Client</title>
-
-
-<!-- Fonts
-    ================================================== -->
-<link rel="stylesheet" type="text/css" href="css/fonts/open_sans.css" />
-<link rel="stylesheet" type="text/css" href="css/fonts/typicons.css" />
-
-<!-- jquery 
-    ================================================== -->
-
-
-
-
-	<!-- Style
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="text/javascript" http-equiv="Content-Script-Type" />
+	<meta content="text/css" http-equiv="Content-Style-Type" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+	
+	<title>Imixs-BPMN Client</title>
+	
+	
+	<!-- Fonts
 	    ================================================== -->
+	<link rel="stylesheet" type="text/css" href="css/fonts/open_sans.css" />
+	<link rel="stylesheet" type="text/css" href="css/fonts/typicons.css" />
+	
+	<!-- Style
+		    ================================================== -->
 	<link rel="stylesheet" href="css/imixs-basic.css" />
 	<link rel="stylesheet" href="css/imixs-layout.css" />
 	<link rel="stylesheet" href="css/imixs-bpmn.css" />
-
-
+	
+	
 	<!-- bpmn.io styles -->
-	  <link rel="stylesheet" href="vendor/bpmn-js/assets/diagram-js.css" />
-	  <link rel="stylesheet" href="vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
-	  <link rel="stylesheet" href="css/app.css" />
+	<link rel="stylesheet" href="vendor/bpmn-js/assets/diagram-js.css" />
+	<link rel="stylesheet"
+		href="vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
+	<link rel="stylesheet" href="css/app.css" />
 </head>
 
 <body>
@@ -40,55 +36,30 @@
 		<nav>
 			<!-- Sidebar -->
 			<div class="nav-sidebar">
-
-
 				<div class="nav-title">
 					<h4>
 						<a
 							href="#{facesContext.externalContext.requestContextPath}/imixsarchive">
 							<label>Imixs-BPMN</label>
-						</a> <span id="js-togglemenue" class="pull-right typcn typcn-th-menu-outline"
-							style="margin-right: 10px; cursor: pointer; margin-bottom: 20px;"
-							></span>
-							
-							
-						
+						</a> <span id="js-togglemenue"
+							class="pull-right typcn typcn-th-menu-outline"
+							style="margin-right: 10px; cursor: pointer; margin-bottom: 20px;"></span>
 					</h4>
-
-					<small><label>v5.1.3</label></small>
-
-
+					<small><label>v0.0.1</label></small>
 				</div>
 				<hr />
 				<ul>
-					<li class="nav-item" id="js-create-diagram"><span 
+					<li class="nav-item" id="js-create-diagram"><span
 						class="typcn typcn-edit"></span><label>New</label></li>
-
 				</ul>
 				<hr />
 				<ul>
-
-					<li class="nav-item" v-on:click="showSection('bulkupdate')"><span
-						class="typcn typcn-folder-open"></span><label>Open</label></li>
-
-					<li class="nav-item" v-on:click="showSection('bulkdelete')"><span
-						class="typcn typcn-trash"></span><label>Load</label></li>
-
-					
-					<li class="nav-item" v-on:click="showSection('index')"><span
-						class="typcn typcn-map"></span><label>Index</label></li>
+					<li class="nav-item" id="js-download-diagram"><span
+						class="typcn typcn-folder-open"></span><label>Download
+							BPMN</label></li>
+					<li class="nav-item" id="js-download-svg"><span
+						class="typcn typcn-trash"></span><label>Download SVG</label></li>
 				</ul>
-				<hr />
-				<ul>
-
-					<li class="nav-item" v-on:click="showSection('export')"><span
-						class="typcn typcn-upload-outline"></span><label>Export</label></li>
-
-					
-				</ul>
-
-
-
 			</div>
 		</nav>
 
@@ -96,24 +67,8 @@
 		<div class="content">
 
 			<div class="header">
-				<from>
-
-
 				<div class="row">
-					<div class="col-4">
-						<span><strong>API: </strong><span
-							v-show="connection_status >= 300"
-							class="typcn typcn-warning error"></span><span
-							v-show="connection_status < 200"
-							class="typcn typcn-world-outline"></span><span
-							v-show="connection_status == 200"
-							class="typcn typcn-world-outline success"></span> {{api}}</span> <span
-							class="typcn typcn-cog" v-on:click="showSection('connect')"></span>
-						<span class="typcn typcn-power" v-on:click="logout()"></span>
-					</div>
-					<div class="searchbox col-4">
-						<input v-model="query_short" id="quick_search"></input><span
-							class="typcn typcn-zoom-outline" v-on:click="quickSearch()"></span>
+					<div class="linkbox col-8">demo-ticket-workflow-de.1.0.0.bpmn
 					</div>
 					<div class="linkbox col-4">
 						<div class="pull-right">
@@ -128,82 +83,40 @@
 						</div>
 					</div>
 				</div>
-				
-				</from>
 
 			</div>
 
 
-			<div id="imixs-content" class="main-container">
-				<form>
+		
+
+				<div class="bpmn-panel" id="js-drop-zone">
+
+					<div class="message intro">
+						<div class="note">
+							<h3>Imixs-Workflow</h3>
+							Drop your BPMN diagram here to get started.
+						</div>
+					</div>
+
+					<div class="message error">
+						<div class="note">
+							<p>Error: content can not be parsed as a BPMN 2.0 diagram.</p>
+
+							<div class="details">
+								
+								<pre></pre>
+							</div>
+						</div>
+					</div>
+
+					<div class="canvas" id="bpmn-canvas"></div>
+				</div>
 
 
-
-
-
-<div class="content" id="js-drop-zone">
-
-    <div class="message intro">
-      <div class="note">
-      	<h3>Imixs-Workflow</h3>
-        Drop BPMN diagram from your desktop to get started.
-      </div>
-    </div>
-
-    <div class="message error">
-      <div class="note">
-        <p>Ooops, we could not display the BPMN 2.0 diagram.</p>
-
-        <div class="details">
-          <span>cause of the problem</span>
-          <pre></pre>
-        </div>
-      </div>
-    </div>
-
-    <div class="canvas" id="bpmn-canvas"></div>
-  </div>
-
-
-				
-				
-			
-			</form>
-			</div>
-
-			<div class="imixs-wait">
-				<!-- empty -->
-			</div>
-
-
-<ul class="buttons">
-    <li>
-      download
-    </li>
-    <li>
-      <a id="js-download-diagram" href title="download BPMN diagram">
-        BPMN diagram
-      </a>
-    </li>
-    <li>
-      <a id="js-download-svg" href title="download as SVG image">
-        SVG image
-      </a>
-    </li>
-  </ul>
-
-
-			<!-- FOOTER -->
-			<div id="imixs-footer">www.imixs.org</div>
-
-
-
+		
 		</div>
 	</div>
-
 </body>
 
-  
- 
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </html>

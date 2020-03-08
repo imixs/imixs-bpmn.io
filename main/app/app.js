@@ -11,29 +11,20 @@ var modeler = new BpmnModeler({
   container: '#bpmn-canvas'
 });
 
-
-
-
-
 function togglemenu() {
 	if (!toggleState) {
-
 		$('.nav-sidebar label').hide();
-		$('.content').css('margin-left', '60px');
 		$('.nav-sidebar').css('width', '60px');
-
+		$('.content').css('padding-left', '60px');
+		$('.content').css('margin-left', '60px');
 	} else {
+		$('.content').css('padding-left', '200px');
 		$('.content').css('margin-left', '200px');
 		$('.nav-sidebar').css('width', '200px');
 		$('.nav-sidebar label').show();
 	}
-
 	toggleState = !toggleState;
-
 }
-
-
-
 
 
 function createNewDiagram() {
@@ -43,7 +34,6 @@ function createNewDiagram() {
 function openDiagram(xml) {
 
   modeler.importXML(xml, function(err) {
-
     if (err) {
       container
         .removeClass('with-diagram')
@@ -57,8 +47,6 @@ function openDiagram(xml) {
         .removeClass('with-error')
         .addClass('with-diagram');
     }
-
-
   });
 }
 
@@ -80,15 +68,10 @@ function registerFileDrop(container, callback) {
     e.preventDefault();
 
     var files = e.dataTransfer.files;
-
     var file = files[0];
-
     var reader = new FileReader();
-
     reader.onload = function(e) {
-
       var xml = e.target.result;
-
       callback(xml);
     };
 
@@ -138,7 +121,7 @@ $(function() {
   var downloadLink = $('#js-download-diagram');
   var downloadSvgLink = $('#js-download-svg');
 
-  $('.buttons a').click(function(e) {
+  $('.nav-sidebar li').click(function(e) {
     if (!$(this).is('.active')) {
       e.preventDefault();
       e.stopPropagation();
