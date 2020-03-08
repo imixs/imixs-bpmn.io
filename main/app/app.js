@@ -55,8 +55,8 @@ function saveSVG(done) {
 }
 
 function saveDiagram(done) {
-
-  modeler.saveXML({ format: true }, function(err, xml) {
+alert('save diagram');
+    modeler.saveXML({ format: true }, function(err, xml) {
     done(err, xml);
   });
 }
@@ -112,30 +112,86 @@ $(function() {
   });
   
   
+  
+  
+  
   $('#js-togglemenue').click(function(e) {
 	  e.stopPropagation();
 	  e.preventDefault();
 	  togglemenu();
   });
+  
+  
+  
+  
+  
+  // ############ Ralph ###################################
+  $('#js-save-diagram').click(function(e) {
+	  e.stopPropagation();
+	  //e.preventDefault();
+
+	  var link=$(this);
+	  //alert(link.attr('id')); 
+	  
+	  modeler.saveXML({ format: true }, function(err, xml) {
+	    // see: https://stackoverflow.com/questions/2226192/generate-some-xml-in-javascript-prompt-user-to-save-it
+	    var name="test1.bpmn";
+	    $(link).addClass('active').attr({
+	        'href': 'data:application/xml;charset=UTF-8,' + encodeURIComponent(xml),
+	        'download': name
+	      });
+		    
+        });
+	  
+  });
+  
+  
+  $('#js-export-diagram').click(function(e) {
+	  e.stopPropagation();
+	  //e.preventDefault();
+
+	  var link=$(this);
+	  //alert(link.attr('id')); 
+	  
+	  modeler.saveSVG({ format: true }, function(err, svg) {
+	    // see: https://stackoverflow.com/questions/2226192/generate-some-xml-in-javascript-prompt-user-to-save-it
+	    var name="test1.svg";
+	    $(link).addClass('active').attr({
+	        'href': 'data:application/xml;charset=UTF-8,' + encodeURIComponent(svg),
+	        'download': name
+	      });
+		    
+        });
+	  
+  });
+  
+  // ######################################################
+  
+  
+  
+  
 
   var downloadLink = $('#js-download-diagram');
   var downloadSvgLink = $('#js-download-svg');
 
-  $('.nav-sidebar li').click(function(e) {
-    if (!$(this).is('.active')) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  });
+ 
+  $('.buttons a').click(function(e) {
+	    if (!$(this).is('.active')) {
+	      e.preventDefault();
+	      e.stopPropagation();
+	    }
+	  });
 
   function setEncoded(link, name, data) {
     var encodedData = encodeURIComponent(data);
-
+//alert("data=" + encodedData);
     if (data) {
       link.addClass('active').attr({
         'href': 'data:application/bpmn20-xml;charset=UTF-8,' + encodedData,
         'download': name
       });
+      
+      
     } else {
       link.removeClass('active');
     }
@@ -152,7 +208,16 @@ $(function() {
     });
   }, 500);
 
+  
+  // Hook into Life-Cycle Events
   modeler.on('commandStack.changed', exportArtifacts);
+  
+  modeler.on('element.changed', function(event) {
+	  var element = event.element;
+
+	  // the element was changed by the user
+  });
+  
 });
 
 
