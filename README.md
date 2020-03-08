@@ -2,7 +2,7 @@
 
 Imixs-BPMN.io Modeler is a web based BPMN modeler based on the [bpmn.io project](https://github.com/bpmn-io/bpmn-js). 
 
-
+<img src="imixs-bpmn-io.png" />
 
 
 ## Run the Modeler
