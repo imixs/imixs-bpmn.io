@@ -1,6 +1,11 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+
+  devServer: {
+    compress: true,
+    disableHostCheck: true   
+  },
   entry: {
     bundle: ['./app/app.js']
   },
