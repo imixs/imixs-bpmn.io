@@ -23,4 +23,15 @@ To build the example into the `public` folder execute
 	$ npm run all
 
 	
+# Docker
+
+To build the docker image run:
+
+	$ docker build -t imixs/imixs-bpmn.io .
+	
+Run the image with:
+
+	$ docker run -p 8080:8080 imixs/imixs-bpmn.io
+
+
 	
