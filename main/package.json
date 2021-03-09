@@ -1,6 +1,6 @@
 {
   "name": "Imixs-BPMN.io",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Imixs-BPMN.io Modeler",
   "scripts": {
     "all": "run-s lint build",
@@ -26,7 +26,7 @@
       "url": "https://www.imixs.org"
     }
   ],
-  "license": "GPL",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "copy-webpack-plugin": "^4.6.0",
     "eslint": "^5.0.1",
