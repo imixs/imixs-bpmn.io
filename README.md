@@ -11,18 +11,16 @@ You need a [NodeJS](http://nodejs.org) development stack with [npm](https://npmj
 
 To install all project dependencies execute
 
-```sh
-npm install
-```
+	$ cd main/
+	$ npm install
 
 To start the example execute
 
-```sh
-npm start
-```
+	$ npm start
 
 To build the example into the `public` folder execute
 
-```sh
-npm run all
-```
+	$ npm run all
+
+	
+	
