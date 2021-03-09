@@ -25,6 +25,17 @@ To build the example into the `public` folder execute
 	
 # Docker
 
+To run the application in Docker you need to edit the package.json so that webpack-dev-server makes the application available externally. 
+
+Replace:
+
+	"dev": "webpack-dev-server --content-base=public --open",
+
+with
+
+    "dev": "webpack-dev-server --content-base=public --open --host 0.0.0.0",
+    
+    
 To build the docker image run:
 
 	$ docker build -t imixs/imixs-bpmn.io .

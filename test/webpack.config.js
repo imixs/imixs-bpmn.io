@@ -22,7 +22,6 @@ module.exports = {
       { from: '**/*.{html,css,ico,woff,ttf}', context: 'app/' }
     ])
   ],
-  //mode: 'development',
-  mode: 'production',
+  mode: 'development',
   devtool: 'source-map'
 };

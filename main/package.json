@@ -5,7 +5,7 @@
   "scripts": {
     "all": "run-s lint build",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --content-base=public --open",
+    "dev": "webpack-dev-server --content-base=public --open --host 0.0.0.0",
     "lint": "eslint .",
     "start": "run-s dev"
   },
