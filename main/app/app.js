@@ -115,17 +115,17 @@ $(function() {
   
   
   
-  // ############ Ralph ###################################
+  // ############ imixs-org ###################################
   $('#js-save-diagram').click(function(e) {
 	  e.stopPropagation();
-	  //e.preventDefault();
-
 	  var link=$(this);
-	  //alert(link.attr('id')); 
 	  
 	  modeler.saveXML({ format: true }, function(err, xml) {
+	   	  if (err) {
+            return console.error('could not save BPMN 2.0 diagram', err);
+          }
 	    // see: https://stackoverflow.com/questions/2226192/generate-some-xml-in-javascript-prompt-user-to-save-it
-	    var name="test1.bpmn";
+	    var name="diagram.bpmn";
 	    $(link).addClass('active').attr({
 	        'href': 'data:application/xml;charset=UTF-8,' + encodeURIComponent(xml),
 	        'download': name
@@ -138,14 +138,11 @@ $(function() {
   
   $('#js-export-diagram').click(function(e) {
 	  e.stopPropagation();
-	  //e.preventDefault();
-
 	  var link=$(this);
-	  //alert(link.attr('id')); 
 	  
 	  modeler.saveSVG({ format: true }, function(err, svg) {
 	    // see: https://stackoverflow.com/questions/2226192/generate-some-xml-in-javascript-prompt-user-to-save-it
-	    var name="test1.svg";
+	    var name="diagram.svg";
 	    $(link).addClass('active').attr({
 	        'href': 'data:application/xml;charset=UTF-8,' + encodeURIComponent(svg),
 	        'download': name
