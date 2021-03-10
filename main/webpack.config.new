@@ -1,0 +1,20 @@
+var path = require('path');
+
+module.exports = {
+  mode: 'development',
+  entry: './app/app.js',
+  output: {
+    path: __dirname + '/public',
+    filename: 'app.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.bpmn$/,
+        use: {
+          loader: 'raw-loader'
+        }
+      }
+    ]
+  }
+};

@@ -1,4 +1,4 @@
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 
@@ -21,20 +21,12 @@ module.exports = {
       }
     ]
   },
-  
   plugins: [
-    new CopyPlugin({
-      patterns: [
+    new CopyWebpackPlugin([
       { from: 'assets/**', to: 'vendor/bpmn-js', context: 'node_modules/bpmn-js/dist/' },
       { from: '**/*.{html,css,ico,woff,ttf}', context: 'app/' }
-      ],
-      options: {
-        concurrency: 100,
-      },
-    }),
-  ],  
-  
-  
+    ])
+  ],
   //mode: 'development',
   mode: 'production',
   devtool: 'source-map'
