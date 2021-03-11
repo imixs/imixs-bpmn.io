@@ -6,6 +6,7 @@ import diagramXML from '../resources/new_process.bpmn';
 
 var container = $('#js-drop-zone');
 var toggleState = false;
+var modelName="diagram.bpmn";
 
 var modeler = new BpmnModeler({
   container: '#bpmn-canvas'
@@ -46,10 +47,44 @@ function openDiagram(xml) {
       container
         .removeClass('with-error')
         .addClass('with-diagram');
+
+		// update the modelName....
+		var canvas = modeler.get('canvas');
+		var rootElement = canvas.getRootElement();
+		// get the BPMN definitions object....
+		var bpmnDefinitions=rootElement.businessObject.$parent;
+		// fetch the model version
+		const workflowVersion=getImixsExtensionByName(bpmnDefinitions,"txtworkflowmodelversion");
+		if (workflowVersion) {
+			modelName=workflowVersion;
+		} else {
+			modelName="diagram"; // default
+		}
+		$("#bpmn_model_name").html(modelName+".bpmn");
+
+
     }
   });
 }
 
+
+// This method returns the value of an Imixs BPMN extension from a given 
+// BPNN object
+function getImixsExtensionByName(bpmnObject,name) {
+	// get all items
+	var items=bpmnObject.extensionElements.values;
+	// iterate over all items
+	for (var element of items) {
+		if (element.name==name) {
+			// we found the item!
+			if (element.$children) {
+				// we have a value list, so we return the first value
+				return element.$children[0].$body;
+			}
+		}
+	}
+	// no match!
+}
 
 function registerFileDrop(container, callback) {
 
@@ -125,10 +160,10 @@ $(function() {
             return console.error('could not save BPMN 2.0 diagram', err);
           }
 	    // see: https://stackoverflow.com/questions/2226192/generate-some-xml-in-javascript-prompt-user-to-save-it
-	    var name="diagram.bpmn";
+	    //var name="diagram.bpmn";
 	    $(link).addClass('active').attr({
 	        'href': 'data:application/xml;charset=UTF-8,' + encodeURIComponent(xml),
-	        'download': name
+	        'download': modelName+'.bpmn'
 	      });
 		    
         });
@@ -142,10 +177,10 @@ $(function() {
 	  
 	  modeler.saveSVG({ format: true }, function(err, svg) {
 	    // see: https://stackoverflow.com/questions/2226192/generate-some-xml-in-javascript-prompt-user-to-save-it
-	    var name="diagram.svg";
+	    //var name="diagram.svg";
 	    $(link).addClass('active').attr({
 	        'href': 'data:application/xml;charset=UTF-8,' + encodeURIComponent(svg),
-	        'download': name
+	        'download': modelName+'.svg'
 	      });
 		    
         });
@@ -154,18 +189,7 @@ $(function() {
   
   // ######################################################
   
-  
-  
-
-  
-  // Hook into Life-Cycle Events
-  modeler.on('commandStack.changed', exportArtifacts);
-  
-  modeler.on('element.changed', function(event) {
-	  var element = event.element;
-
-	  // the element was changed by the user
-  });
+ 
   
 });
 
